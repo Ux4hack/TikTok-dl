@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# ───────────[Dtve_Web]───────────
+# Versión: 1.0
+# Open Source - Software Libre
+# O.S: Android - Termux
+# License: General Public License
+# Coded by: Ux4hack
+# Date: 18/09/2023 - 20/09/2023
+#
+# ─────────Colors────────────
+aq="\e[36m"
+G="\e[0;32m\033[1m"
+R="\e[1;31m"
+RED="\e[101m"
+W="\033[0m"
+GR='\033[90m'
+AQ="\e[46m"
+GRAY="\e[100m"
+# ─────────Variables───────────
+MyTempFile=$(mktemp)
+website="https://ssstik.io/abc?url=dl"
+TheDork="&locale=en&tt=OHp3azhn"
+directorio="/storage/emulated/0/TikTok-dl/"
+trap ctrl_c 2
+# ─────────Functions───────────
+ctrl_c() {
+  echo
+  echo
+  echo -e " ${W}[${aq}*${W}] ${R}TikTok-dl Finalizado."
+  echo -e " ${W}[${aq}*${W}] ${GR}Desarrollador: ${W}Ux4hack"
+  echo -e " ${W}[${aq}*${W}] ${GR}Telegram:${W} https://t.me/Ux4hack"
+  echo -e " ${W}[${aq}*${W}] ${GR}Github:${W} https://github.com/Ux4hack"
+  echo
+  exit
+}
+if [ ! -d "$directorio" ]; then
+  mkdir "$directorio"
+fi
+# ─────────Animation───────────
+animate_loading() {
+    local bar_length=20
+    local download_time=60
+    for ((i = 0; i <= bar_length; i++)); do
+        local progress=$((i * 100 / bar_length))
+        local bar=""
+        for ((j = 0; j < bar_length; j++)); do
+            if [ $j -lt $i ]; then
+                bar+="\e[96m█\e[0m"
+            else
+                bar+=" "
+            fi
+        done
+        local remaining_time=$((download_time - (i * download_time / bar_length)))
+        echo -ne "\r\e[90mDESCARGANDO [$bar] $progress%《》$remaining_time"
+        sleep 1
+    done
+}
+# ─────────Banner──────────
+banner() {
+  clear;echo -e "${W}╭─────────────────────────────────────╮\n${W}│${aq}Ux4hack${W}│${aq}⠀⠀.${W}      .${GR}⠀⢸⡏⠉⠉⠉⢻⢦⠀⠀⠀⠀⠀   ${R}.⠀ ${W}│${GR}\n${W}├───────╯ ${GR}⠀⠀  ⠀⠀⠀ ⠀⠀⢸⡇⠀⠀⠀⠈⣷⣇⠀⠀⠀⠀⠀⠀ ⠀  ${W}│${GR}\n${W}│${aq}.${GR}                  ⢸⡇⠀⠀⠀⠀⠈⠻⣄⠀⠀⠀⠀ ${W}.   ${W}│${GR}\n${W}│${R}   ⠀⠀⠀⠀ ⠀     .${GR}⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠈⠉⠓⠒⣦⡀⠀   ${W}│${GR}\n${W}│${R}.${GR} ⠀     ⠀.⠀⠀⠀⠀⠀⠀⠀ ⠀⢸⡇⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⡷⣽⡆   ${W}│${GR}\n${W}│${GR}  ⠀     ⠀⠀⢀⣠⠴⠒⠚⠛⠛⣦⡀⢸⡇⠀⠀⠀⢸⡻⣶⣤⣄⣀⣀⣟⢾⡇   ${W}│${GR}\n${W}│${GR}       ⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀⡟⢿⢸⡇⠀⠀⠀⢸⣝⡏⠙⠳⠬⢷⣌⣿⠇   ${W}│${GR}\n${W}│${GR}       ⢠⠏⠀⠀⠀⠀⢀⡤⢤⡴⣟⢾⢸⡇⠀⠀⠀⢸⣌⡇⠀⠀⠀⠀⠀⠀⠀   ${W}│${GR}\n${W}│${GR}.${GR}      ⡞⠀⠀⠀⠀⡴⢯⣙⣦⠽⠾⠿⢸⡇⠀⠀⠀⢸⣌⡇⠀${aq}.⠀⠀⠀⠀⠀⠀  ${W}│${GR}\n${W}│${GR}       ⡇⠀⠀⠀⢸⡓⢤⠟⠀⠀⠀⠀⢸⡇⠀⠀⠀⢸⣌⡇⠀⠀⠀⠀⠀⠀⠀   ${W}│${GR}\n${W}│${GR}       ⣇⠀⠀⠀⠈⢿⣾⠀⠀⠀⠀⢀⡾⠀⠀⠀⠀⡾⢮⡇⠀⠀⠀⠀⠀⠀⠀ ${R}. ${W}│${GR}\n${W}│${aq}     .${GR} ⠹⡄⠀⠀⠀⠀⠙⠳⠤⠤⠖⠋⠀⠀⠀⠀⣰⡛⢦⡇⠀⠀⠀⠀⠀⠀ ⠀  ${W}│${GR}\n${W}│${GR}       ⠀⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⢧⣙⡞⠀⠀⠀⠀⠀⠀⠀⠀   ${W}│${GR}\n${W}│${W}.${GR}⠀      ⠀⠀⠹⢶⣤⣄⣀⣀⣀⣀⣠⣤⠾⣏⠙⣦⠟${W}.⠀⠀⠀⠀⠀⠀⠀⠀   ${W}│${GR}\n${W}│${R}       ⠀.⠀${GR}⠀⠀⠙⠳⠽⣮⣻⣌⣳⣬⠷⠞⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀.  ${W}│${GR}\n${W}╰─────────────────────────────────────╯${W}"
+  echo -e "${aq} INFORMACION:";echo -e "${GR} ------------${W}";echo -e "${W}>${aq}-= ${R}Info:${GR} TikTok's Sin marca de Agua";echo -e "${W}>${aq}-= ${R}Autor:${GR} @Ux4hack";echo -e "${W}>${aq}-= ${R}Version:${GR} 1.0";echo
+}
+banner
+echo -e "${W}╭──[${R}${AQ}LINK DEL VIDEO DE TIKTOK${W}]──╮"
+echo -ne "${W}╰──${aq}❯${GR}❯ ${R}"
+read -r lin
+url_Video="$lin"
+if [ -z "${lin}" ]; then
+    banner;exit
+fi
+echo
+echo -ne "${R}Nombre (${GR}ENTER para omitir${R})${aq}>${R} "
+read video_name
+if [ -z "$video_name" ]; then
+  video_name=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+fi
+url_encoded=$(printf "%s" "$url_Video" | jq -s -R -r @uri)
+banner
+$(command -v curl) -sL "$website" --data "id=$url_encoded$TheDork" -o $MyTempFile > /dev/null 2>&1
+	animate_loading
+url_Down=$(grep "href=\"https://tikcdn.io/ssstik/" $MyTempFile|head -n1|awk -F "\"" '{print $2}') > /dev/null 2>&1
+wget --tries=5 "$url_Down" -O ${directorio}/$video_name.mp4 > /dev/null 2>&1
+	banner
+if [[ -e "${directorio}/${video_name}.mp4" ]]; then
+  echo -e "${GR}[${aq}√${GR}] ${R}Descargado exitosamente en :\n${W} ╰──${aq}❯${GR}❯ ${W}/sdcard/0/TikTok-dl/${video_name}.mp4\n"
+else
+  echo -e "${R} ERROR: ${W}Algo salió mal."
+  exit 1
+fi
+
+# ────────── I'm ©Ux4hack ──────────
