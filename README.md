@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/"><img alt="AwesomeWM Logo" height="200" align = "center" src="https://github.com/Ux4hack/TikTok-dl/blob/main/tik.png"></a> 
+<a href="https://github.com/"><img alt="AwesomeWM Logo" height="270" align = "center" src="https://github.com/Ux4hack/TikTok-dl/blob/main/tik.png"></a> 
 </p>
 
 <div align = "center">
